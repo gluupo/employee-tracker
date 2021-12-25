@@ -13,7 +13,6 @@ AS A business owner
 I WANT to be able to view and manage the departments, roles, and employees in my company
 SO THAT I can organize and plan my business
 ```
-
 ## description
 ``` 
 GIVEN a command-line application that accepts user input
@@ -34,7 +33,6 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
-
 ## visuals
 
 ## usage
