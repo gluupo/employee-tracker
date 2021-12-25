@@ -34,7 +34,9 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
 ## visuals
-
+[![Image from Gyazo](https://i.gyazo.com/8d12b8a9a73194bff13aa03b6375fb0e.gif)](https://gyazo.com/8d12b8a9a73194bff13aa03b6375fb0e)<br><br>
+full length demonstration of application can be seen at the following link: <br>
+https://drive.google.com/file/d/1epl8GWrjDpHu7-CfQgbhjCzQz2OCmjPh/view
 ## usage
   
 run the following command at the root of your project and answer the prompted questions:
