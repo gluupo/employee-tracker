@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 const cTable = require('console.table');
 
 // initalizing arrays for lists
-var roleArr = [];
-var managersArr = [];
-var departmentsArr = [];
+const roleArr = [];
+const managersArr = [];
+const departmentsArr = [];
 
 // define the database connection
 const connection = mysql.createConnection({
@@ -227,7 +227,7 @@ const viewDepartmentBudget = () => {
 function selectRole() {
   connection.query("SELECT * FROM role", function(err, res) {
     if (err) throw err
-    for (var i = 0; i < res.length; i++) {
+    for (const i = 0; i < res.length; i++) {
       roleArr.push(res[i].title);
     }
 
@@ -239,7 +239,7 @@ function selectRole() {
 function selectManager() {
   connection.query("SELECT first_name, last_name FROM employee", function(err, res) {
     if (err) throw err
-    for (var i = 0; i < res.length; i++) {
+    for (const i = 0; i < res.length; i++) {
       managersArr.push(res[i].first_name);
     }
 
@@ -251,7 +251,7 @@ function selectManager() {
 function selectDepartment() {
   connection.query("SELECT name FROM department", function(err, res) {
     if (err) throw err
-    for (var i = 0; i < res.length; i++) {
+    for (const i = 0; i < res.length; i++) {
       departmentsArr.push(res[i].name);
     }
 
@@ -285,8 +285,8 @@ function addEmployee() {
           choices: selectManager()
       }
   ]).then(function (res) {
-    var roleId = selectRole().indexOf(res.role) + 1
-    var managerId = selectManager().indexOf(res.manager) + 1
+    const roleId = selectRole().indexOf(res.role) + 1
+    const managerId = selectManager().indexOf(res.manager) + 1
     console.log(managerId);
     connection.query("INSERT INTO employee SET ? ", 
     {
@@ -330,7 +330,7 @@ function addRole() {
           choices: selectDepartment()
         }
     ]).then(function(res) {
-      var departmentId = selectDepartment().indexOf(res.department) + 1
+      const departmentId = selectDepartment().indexOf(res.department) + 1
         connection.query(
             "INSERT INTO role SET ?",
             {
@@ -363,7 +363,7 @@ function addDepartment() {
         message: "What Department would you like to add?"
       }
   ]).then(function(res) {
-      var query = connection.query(
+      const query = connection.query(
           "INSERT INTO department SET ?",
           {
             name: res.name
