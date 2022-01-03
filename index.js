@@ -224,7 +224,7 @@ const viewDepartmentBudget = () => {
 };
 
 // menu for choosing a role
-function selectRole() {
+const selectRole = () => {
   connection.query("SELECT * FROM role", function(err, res) {
     if (err) throw err
     for (const i = 0; i < res.length; i++) {
@@ -236,7 +236,7 @@ function selectRole() {
 }
 
 // menu for choosing a manager
-function selectManager() {
+const selectManager = () => {
   connection.query("SELECT first_name, last_name FROM employee", function(err, res) {
     if (err) throw err
     for (const i = 0; i < res.length; i++) {
@@ -248,7 +248,7 @@ function selectManager() {
 }
 
 // menu for choosing a department
-function selectDepartment() {
+const selectDepartment = () => {
   connection.query("SELECT name FROM department", function(err, res) {
     if (err) throw err
     for (const i = 0; i < res.length; i++) {
@@ -260,7 +260,7 @@ function selectDepartment() {
 }
 
 // function to add a new employee
-function addEmployee() { 
+const addEmployee = () => { 
   inquirer.prompt([
       {
         name: "firstName",
@@ -309,53 +309,41 @@ function addEmployee() {
 }
 
 // function to add a new role
-function addRole() { 
-  connection.query("SELECT role.title AS Title, role.salary AS Salary FROM role",   function(err, res) {
-    inquirer.prompt([
+  const addRole = () => {
+    connection.query('SELECT id AS value, name FROM department', (err, choices) => {
+      inquirer.prompt([
         {
-          name: "Title",
-          type: "input",
-          message: "What is the roles Title?"
+          type: 'input',
+          message: 'What Role would you like to add?',
+          name: 'title'
         },
         {
-          name: "Salary",
-          type: "input",
-          message: "What is the Salary?"
-
+          type: 'number',
+          message: 'What\'s the salary?',
+          name: 'salary'
         },
         {
-          name: "department",
-          type: "rawlist",
-          message: "Choose their Department:",
-          choices: selectDepartment()
-        }
-    ]).then(function(res) {
-      const departmentId = selectDepartment().indexOf(res.department) + 1
-        connection.query(
-            "INSERT INTO role SET ?",
-            {
-              title: res.Title,
-              salary: res.Salary,
-              department_id: departmentId
-            },
-            function(err) {
-                if (err) throw err
-                console.log('\033[2J'); // screen clear
-                artHeader();
-                console.log("====================================");
-                console.table("Role Successfully Added");
-                console.log("====================================");
-                promptChoice();
-            }
-        )
-
+          type: 'rawlist',
+          message: 'Select a Department for the role?',
+          name: 'department_id',
+          choices
+        },
+      ]).then(function(answers) {
+        connection.query('INSERT INTO role SET ?', answers, (err, result) => {
+          if (result) 
+          console.log('\033[2J'); // screen clear
+          artHeader();
+          console.log("====================================");
+          console.table("Role Successfully Added");
+          console.log("====================================");
+          promptChoice();
+        });
+      });
     });
-  });
-  }
+  };
 
 // function to add a new department
-function addDepartment() { 
-
+const addDepartment = () => { 
   inquirer.prompt([
       {
         name: "name",
